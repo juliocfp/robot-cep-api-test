@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.11.2 on win32)" generated="20230324 09:14:20.997" rpa="false" schemaversion="3">
+<suite id="s1" name="Tests" source="C:\Users\julio\Documents\workspace\quan-to\tests">
+<suite id="s1-s1" name="Frontend" source="C:\Users\julio\Documents\workspace\quan-to\tests\frontend">
+<suite id="s1-s1-s1" name="Buscar Cep Endereco" source="C:\Users\julio\Documents\workspace\quan-to\tests\frontend\buscar_cep_endereco">
+<suite id="s1-s1-s1-s1" name="buscarCEP" source="C:\Users\julio\Documents\workspace\quan-to\tests\frontend\buscar_cep_endereco\buscarCEP.robot">
+<test id="s1-s1-s1-s1-t1" name="Cenário 1 - Consulta de CEP com sucesso (hífen)" line="11">
+<kw name="Dado que tenha o site Correios aberto no navegador" library="buscarCEP_keywords" type="SETUP" sourcename="Dado que tenha o site ${site} aberto no navegador">
+<if>
+<branch type="IF" condition="&quot;${site}&quot; == &quot;Correios&quot;">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${CORREIOS_HOST_WEB}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230324 09:14:21.242" level="INFO">Opening browser 'chrome' to base url 'https://www.correios.com.br/'.</msg>
+<status status="PASS" starttime="20230324 09:14:21.242" endtime="20230324 09:14:26.703"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:21.241" endtime="20230324 09:14:26.703"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:21.241" endtime="20230324 09:14:26.703"/>
+</if>
+<status status="PASS" starttime="20230324 09:14:21.241" endtime="20230324 09:14:26.703"/>
+</kw>
+<kw name="Quando consultar o CEP ${01302001.valor}" library="bdd_config" sourcename="Quando ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="consultar o CEP 01302-001" library="buscarCEP_keywords" sourcename="consultar o CEP ${cep}">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:26.706" endtime="20230324 09:14:26.714"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>${cep}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230324 09:14:26.715" level="INFO">Typing text '01302-001' into text field 'id:relaxation'.</msg>
+<status status="PASS" starttime="20230324 09:14:26.714" endtime="20230324 09:14:26.768"/>
+</kw>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230324 09:14:26.769" level="INFO">Sending key(s) ('ENTER',) to id:relaxation element.</msg>
+<msg timestamp="20230324 09:14:27.061" level="INFO">Pressing special key ENTER to element.</msg>
+<msg timestamp="20230324 09:14:27.061" level="INFO">Releasing special key ENTER.</msg>
+<status status="PASS" starttime="20230324 09:14:26.768" endtime="20230324 09:14:27.081"/>
+</kw>
+<kw name="Switch Window" library="SeleniumLibrary">
+<arg>NEW</arg>
+<doc>Switches to browser window matching ``locator``.</doc>
+<status status="PASS" starttime="20230324 09:14:27.081" endtime="20230324 09:14:27.089"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:26.706" endtime="20230324 09:14:27.089"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:26.704" endtime="20230324 09:14:27.089"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:26.703" endtime="20230324 09:14:27.090"/>
+</kw>
+<kw name="Então deve ser exibida a tela com resultado da busca para o CEP ${01302001.valor} com Logradouro/Nome, Bairro/Distrito, Localidade/UF, CEP" library="bdd_config" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve ser exibida a tela com resultado da busca para o CEP 01302-001 com Logradouro/Nome, Bairro/Distrito, Localidade/UF, CEP" library="buscarCEP_keywords" sourcename="deve ser exibida a tela com resultado da busca para o CEP ${cep} com Logradouro/Nome, Bairro/Distrito, Localidade/UF, CEP">
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Resultado da Busca por Endereço ou CEP</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:27.093" endtime="20230324 09:14:27.493"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${cep}&quot; == &quot;${01302001.valor}&quot;">
+<for flavor="IN">
+<var>${item}</var>
+<value>&amp;{01302001}</value>
+<iter>
+<var name="${item}">('valor', '01302-001')</var>
+<if>
+<branch type="IF" condition="${i} &gt;= 1">
+<kw name="Get Dictionary Values" library="Collections">
+<var>${key}</var>
+<arg>${01302001}</arg>
+<arg>sort_keys=False</arg>
+<doc>Returns values of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:27.493" endtime="20230324 09:14:27.493"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>${i}</arg>
+<arg>${key}[${i}]</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:27.493" endtime="20230324 09:14:27.493"/>
+</kw>
+<status status="NOT RUN" starttime="20230324 09:14:27.493" endtime="20230324 09:14:27.494"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:27.493" endtime="20230324 09:14:27.494"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230324 09:14:27.494" level="INFO">${i} = 1</msg>
+<status status="PASS" starttime="20230324 09:14:27.494" endtime="20230324 09:14:27.494"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.493" endtime="20230324 09:14:27.494"/>
+</iter>
+<iter>
+<var name="${item}">('logradouro', 'Rua da Consolação - de 1100 a 2460 - lado par')</var>
+<if>
+<branch type="IF" condition="${i} &gt;= 1">
+<kw name="Get Dictionary Values" library="Collections">
+<var>${key}</var>
+<arg>${01302001}</arg>
+<arg>sort_keys=False</arg>
+<doc>Returns values of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20230324 09:14:27.494" level="INFO">${key} = ['01302-001', 'Rua da Consolação - de 1100 a 2460 - lado par', 'Consolação', 'São Paulo/SP', '01302-001']</msg>
+<status status="PASS" starttime="20230324 09:14:27.494" endtime="20230324 09:14:27.494"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>${i}</arg>
+<arg>${key}[${i}]</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<msg timestamp="20230324 09:14:27.534" level="INFO">Table cell contains 'Rua da Consolação - de 1100 a 2460 - lado par'.</msg>
+<status status="PASS" starttime="20230324 09:14:27.494" endtime="20230324 09:14:27.534"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.494" endtime="20230324 09:14:27.534"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:27.494" endtime="20230324 09:14:27.534"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230324 09:14:27.534" level="INFO">${i} = 2</msg>
+<status status="PASS" starttime="20230324 09:14:27.534" endtime="20230324 09:14:27.534"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.494" endtime="20230324 09:14:27.534"/>
+</iter>
+<iter>
+<var name="${item}">('bairro', 'Consolação')</var>
+<if>
+<branch type="IF" condition="${i} &gt;= 1">
+<kw name="Get Dictionary Values" library="Collections">
+<var>${key}</var>
+<arg>${01302001}</arg>
+<arg>sort_keys=False</arg>
+<doc>Returns values of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20230324 09:14:27.535" level="INFO">${key} = ['01302-001', 'Rua da Consolação - de 1100 a 2460 - lado par', 'Consolação', 'São Paulo/SP', '01302-001']</msg>
+<status status="PASS" starttime="20230324 09:14:27.535" endtime="20230324 09:14:27.535"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>${i}</arg>
+<arg>${key}[${i}]</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<msg timestamp="20230324 09:14:27.559" level="INFO">Table cell contains 'Consolação'.</msg>
+<status status="PASS" starttime="20230324 09:14:27.535" endtime="20230324 09:14:27.559"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.535" endtime="20230324 09:14:27.559"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:27.535" endtime="20230324 09:14:27.559"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230324 09:14:27.559" level="INFO">${i} = 3</msg>
+<status status="PASS" starttime="20230324 09:14:27.559" endtime="20230324 09:14:27.559"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.535" endtime="20230324 09:14:27.559"/>
+</iter>
+<iter>
+<var name="${item}">('localidade', 'São Paulo/SP')</var>
+<if>
+<branch type="IF" condition="${i} &gt;= 1">
+<kw name="Get Dictionary Values" library="Collections">
+<var>${key}</var>
+<arg>${01302001}</arg>
+<arg>sort_keys=False</arg>
+<doc>Returns values of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20230324 09:14:27.560" level="INFO">${key} = ['01302-001', 'Rua da Consolação - de 1100 a 2460 - lado par', 'Consolação', 'São Paulo/SP', '01302-001']</msg>
+<status status="PASS" starttime="20230324 09:14:27.559" endtime="20230324 09:14:27.560"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>${i}</arg>
+<arg>${key}[${i}]</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<msg timestamp="20230324 09:14:27.583" level="INFO">Table cell contains 'São Paulo/SP'.</msg>
+<status status="PASS" starttime="20230324 09:14:27.560" endtime="20230324 09:14:27.583"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.559" endtime="20230324 09:14:27.583"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:27.559" endtime="20230324 09:14:27.583"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230324 09:14:27.584" level="INFO">${i} = 4</msg>
+<status status="PASS" starttime="20230324 09:14:27.583" endtime="20230324 09:14:27.584"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.559" endtime="20230324 09:14:27.584"/>
+</iter>
+<iter>
+<var name="${item}">('cep', '01302-001')</var>
+<if>
+<branch type="IF" condition="${i} &gt;= 1">
+<kw name="Get Dictionary Values" library="Collections">
+<var>${key}</var>
+<arg>${01302001}</arg>
+<arg>sort_keys=False</arg>
+<doc>Returns values of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20230324 09:14:27.584" level="INFO">${key} = ['01302-001', 'Rua da Consolação - de 1100 a 2460 - lado par', 'Consolação', 'São Paulo/SP', '01302-001']</msg>
+<status status="PASS" starttime="20230324 09:14:27.584" endtime="20230324 09:14:27.584"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>${i}</arg>
+<arg>${key}[${i}]</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<msg timestamp="20230324 09:14:27.606" level="INFO">Table cell contains '01302-001'.</msg>
+<status status="PASS" starttime="20230324 09:14:27.584" endtime="20230324 09:14:27.606"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.584" endtime="20230324 09:14:27.606"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:27.584" endtime="20230324 09:14:27.606"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230324 09:14:27.607" level="INFO">${i} = 5</msg>
+<status status="PASS" starttime="20230324 09:14:27.606" endtime="20230324 09:14:27.607"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.584" endtime="20230324 09:14:27.607"/>
+</iter>
+<status status="PASS" starttime="20230324 09:14:27.493" endtime="20230324 09:14:27.607"/>
+</for>
+<status status="PASS" starttime="20230324 09:14:27.493" endtime="20230324 09:14:27.607"/>
+</branch>
+<branch type="ELSE IF" condition="&quot;${cep}&quot; == &quot;${04173170.valor}&quot;">
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>1</arg>
+<arg>${04173170.logradouro}</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:27.607" endtime="20230324 09:14:27.607"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>2</arg>
+<arg>${04173170.bairro}</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:27.607" endtime="20230324 09:14:27.607"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>3</arg>
+<arg>${04173170.localidade}</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:27.607" endtime="20230324 09:14:27.607"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>4</arg>
+<arg>${04173170.cep}</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:27.607" endtime="20230324 09:14:27.607"/>
+</kw>
+<status status="NOT RUN" starttime="20230324 09:14:27.607" endtime="20230324 09:14:27.607"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:27.493" endtime="20230324 09:14:27.607"/>
+</if>
+<status status="PASS" starttime="20230324 09:14:27.093" endtime="20230324 09:14:27.607"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.090" endtime="20230324 09:14:27.607"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.090" endtime="20230324 09:14:27.607"/>
+</kw>
+<kw name="Então deve fechar o navegador" library="bdd_config" type="TEARDOWN" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve fechar o navegador" library="buscarCEP_keywords">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20230324 09:14:27.610" endtime="20230324 09:14:29.697"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.610" endtime="20230324 09:14:29.697"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.608" endtime="20230324 09:14:29.697"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:27.608" endtime="20230324 09:14:29.697"/>
+</kw>
+<tag>buscarCEPSucesso_web</tag>
+<tag>buscarCEP_web</tag>
+<status status="PASS" starttime="20230324 09:14:21.241" endtime="20230324 09:14:29.697"/>
+</test>
+<test id="s1-s1-s1-s1-t2" name="Cenário 2 - Consulta de CEP com sucesso (dígito espaço)" line="17">
+<kw name="Dado que tenha o site Correios aberto no navegador" library="buscarCEP_keywords" type="SETUP" sourcename="Dado que tenha o site ${site} aberto no navegador">
+<if>
+<branch type="IF" condition="&quot;${site}&quot; == &quot;Correios&quot;">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${CORREIOS_HOST_WEB}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230324 09:14:29.699" level="INFO">Opening browser 'chrome' to base url 'https://www.correios.com.br/'.</msg>
+<status status="PASS" starttime="20230324 09:14:29.698" endtime="20230324 09:14:33.360"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:29.698" endtime="20230324 09:14:33.360"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:29.698" endtime="20230324 09:14:33.360"/>
+</if>
+<status status="PASS" starttime="20230324 09:14:29.698" endtime="20230324 09:14:33.360"/>
+</kw>
+<kw name="Quando consultar o CEP ${01302_001.valor}" library="bdd_config" sourcename="Quando ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="consultar o CEP 01302-001" library="buscarCEP_keywords" sourcename="consultar o CEP ${cep}">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:33.364" endtime="20230324 09:14:33.372"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>${cep}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230324 09:14:33.372" level="INFO">Typing text '01302-001' into text field 'id:relaxation'.</msg>
+<msg timestamp="20230324 09:14:33.894" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-78.png"&gt;&lt;img src="selenium-screenshot-78.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230324 09:14:33.894" level="FAIL">ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=111.0.5563.65)
+Stacktrace:
+Backtrace:
+	(No symbol) [0x0089DCE3]
+	(No symbol) [0x008339D1]
+	(No symbol) [0x00744C70]
+	(No symbol) [0x0076A1DF]
+	(No symbol) [0x0078AECC]
+	(No symbol) [0x00768726]
+	(No symbol) [0x0078B224]
+	(No symbol) [0x0079D57C]
+	(No symbol) [0x0078ACC6]
+	(No symbol) [0x00766F68]
+	(No symbol) [0x007680CD]
+	GetHandleVerifier [0x00B13832+2506274]
+	GetHandleVerifier [0x00B49794+2727300]
+	GetHandleVerifier [0x00B4E36C+2746716]
+	GetHandleVerifier [0x00946690+617600]
+	(No symbol) [0x0083C712]
+	(No symbol) [0x00841FF8]
+	(No symbol) [0x008420DB]
+	(No symbol) [0x0084C63B]
+	BaseThreadInitThunk [0x758700F9+25]
+	RtlGetAppContainerNamedObjectPath [0x77857BBE+286]
+	RtlGetAppContainerNamedObjectPath [0x77857B8E+238]
+</msg>
+<status status="FAIL" starttime="20230324 09:14:33.372" endtime="20230324 09:14:33.915"/>
+</kw>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:33.915" endtime="20230324 09:14:33.915"/>
+</kw>
+<kw name="Switch Window" library="SeleniumLibrary">
+<arg>NEW</arg>
+<doc>Switches to browser window matching ``locator``.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:33.916" endtime="20230324 09:14:33.916"/>
+</kw>
+<status status="FAIL" starttime="20230324 09:14:33.363" endtime="20230324 09:14:33.916"/>
+</kw>
+<status status="FAIL" starttime="20230324 09:14:33.361" endtime="20230324 09:14:33.916"/>
+</kw>
+<status status="FAIL" starttime="20230324 09:14:33.360" endtime="20230324 09:14:33.916"/>
+</kw>
+<kw name="Então deve ser exibida a tela com resultado da busca considerando a busca como uma parte do Logradouro/Nome" library="bdd_config" sourcename="Então ${keyword}">
+<status status="NOT RUN" starttime="20230324 09:14:33.916" endtime="20230324 09:14:33.916"/>
+</kw>
+<kw name="Então deve fechar o navegador" library="bdd_config" type="TEARDOWN" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve fechar o navegador" library="buscarCEP_keywords">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20230324 09:14:33.919" endtime="20230324 09:14:36.010"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:33.919" endtime="20230324 09:14:36.010"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:33.917" endtime="20230324 09:14:36.010"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:33.917" endtime="20230324 09:14:36.010"/>
+</kw>
+<tag>buscarCEPerro_web</tag>
+<tag>buscarCEP_web</tag>
+<status status="FAIL" starttime="20230324 09:14:29.698" endtime="20230324 09:14:36.010">ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=111.0.5563.65)
+Stacktrace:
+Backtrace:
+	(No symbol) [0x0089DCE3]
+	(No symbol) [0x008339D1]
+	(No symbol) [0x00744C70]
+	(No symbol) [0x0076A1DF]
+	(No symbol) [0x0078AECC]
+	(No symbol) [0x00768726]
+	(No symbol) [0x0078B224]
+	(No symbol) [0x0079D57C]
+	(No symbol) [0x0078ACC6]
+	(No symbol) [0x00766F68]
+	(No symbol) [0x007680CD]
+	GetHandleVerifier [0x00B13832+2506274]
+	GetHandleVerifier [0x00B49794+2727300]
+	GetHandleVerifier [0x00B4E36C+2746716]
+	GetHandleVerifier [0x00946690+617600]
+	(No symbol) [0x0083C712]
+	(No symbol) [0x00841FF8]
+	(No symbol) [0x008420DB]
+	(No symbol) [0x0084C63B]
+	BaseThreadInitThunk [0x758700F9+25]
+	RtlGetAppContainerNamedObjectPath [0x77857BBE+286]
+	RtlGetAppContainerNamedObjectPath [0x77857B8E+238]
+</status>
+</test>
+<test id="s1-s1-s1-s1-t3" name="Cenário 3 - Consulta de CEP com sucesso (tudo junto)" line="23">
+<kw name="Dado que tenha o site Correios aberto no navegador" library="buscarCEP_keywords" type="SETUP" sourcename="Dado que tenha o site ${site} aberto no navegador">
+<if>
+<branch type="IF" condition="&quot;${site}&quot; == &quot;Correios&quot;">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${CORREIOS_HOST_WEB}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230324 09:14:36.014" level="INFO">Opening browser 'chrome' to base url 'https://www.correios.com.br/'.</msg>
+<status status="PASS" starttime="20230324 09:14:36.014" endtime="20230324 09:14:39.643"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:36.014" endtime="20230324 09:14:39.643"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:36.014" endtime="20230324 09:14:39.643"/>
+</if>
+<status status="PASS" starttime="20230324 09:14:36.014" endtime="20230324 09:14:39.643"/>
+</kw>
+<kw name="Quando consultar o CEP ${04173170.valor}" library="bdd_config" sourcename="Quando ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="consultar o CEP 04173170" library="buscarCEP_keywords" sourcename="consultar o CEP ${cep}">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:39.647" endtime="20230324 09:14:39.655"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>${cep}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230324 09:14:39.656" level="INFO">Typing text '04173170' into text field 'id:relaxation'.</msg>
+<status status="PASS" starttime="20230324 09:14:39.655" endtime="20230324 09:14:39.704"/>
+</kw>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230324 09:14:39.705" level="INFO">Sending key(s) ('ENTER',) to id:relaxation element.</msg>
+<msg timestamp="20230324 09:14:40.006" level="INFO">Pressing special key ENTER to element.</msg>
+<msg timestamp="20230324 09:14:40.006" level="INFO">Releasing special key ENTER.</msg>
+<status status="PASS" starttime="20230324 09:14:39.704" endtime="20230324 09:14:40.025"/>
+</kw>
+<kw name="Switch Window" library="SeleniumLibrary">
+<arg>NEW</arg>
+<doc>Switches to browser window matching ``locator``.</doc>
+<status status="PASS" starttime="20230324 09:14:40.025" endtime="20230324 09:14:40.034"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:39.647" endtime="20230324 09:14:40.034"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:39.644" endtime="20230324 09:14:40.034"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:39.644" endtime="20230324 09:14:40.034"/>
+</kw>
+<kw name="Então deve ser exibida a tela com resultado da busca para o CEP ${04173170.valor} com Logradouro/Nome, Bairro/Distrito, Localidade/UF, CEP" library="bdd_config" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve ser exibida a tela com resultado da busca para o CEP 04173170 com Logradouro/Nome, Bairro/Distrito, Localidade/UF, CEP" library="buscarCEP_keywords" sourcename="deve ser exibida a tela com resultado da busca para o CEP ${cep} com Logradouro/Nome, Bairro/Distrito, Localidade/UF, CEP">
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>Resultado da Busca por Endereço ou CEP</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:40.038" endtime="20230324 09:14:40.688"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${cep}&quot; == &quot;${01302001.valor}&quot;">
+<for flavor="IN">
+<var>${item}</var>
+<value>&amp;{01302001}</value>
+<iter>
+<var name="${item}"/>
+<if>
+<branch type="IF" condition="${i} &gt;= 1">
+<kw name="Get Dictionary Values" library="Collections">
+<var>${key}</var>
+<arg>${01302001}</arg>
+<arg>sort_keys=False</arg>
+<doc>Returns values of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:40.689" endtime="20230324 09:14:40.689"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>${i}</arg>
+<arg>${key}[${i}]</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:40.689" endtime="20230324 09:14:40.689"/>
+</kw>
+<status status="NOT RUN" starttime="20230324 09:14:40.689" endtime="20230324 09:14:40.689"/>
+</branch>
+<status status="NOT RUN" starttime="20230324 09:14:40.689" endtime="20230324 09:14:40.689"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230324 09:14:40.689" endtime="20230324 09:14:40.689"/>
+</kw>
+<status status="NOT RUN" starttime="20230324 09:14:40.689" endtime="20230324 09:14:40.689"/>
+</iter>
+<status status="NOT RUN" starttime="20230324 09:14:40.689" endtime="20230324 09:14:40.689"/>
+</for>
+<status status="NOT RUN" starttime="20230324 09:14:40.688" endtime="20230324 09:14:40.689"/>
+</branch>
+<branch type="ELSE IF" condition="&quot;${cep}&quot; == &quot;${04173170.valor}&quot;">
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>1</arg>
+<arg>${04173170.logradouro}</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<msg timestamp="20230324 09:14:40.730" level="INFO">Table cell contains 'Rua Nagib Tanus Gastin'.</msg>
+<status status="PASS" starttime="20230324 09:14:40.690" endtime="20230324 09:14:40.730"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>2</arg>
+<arg>${04173170.bairro}</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<msg timestamp="20230324 09:14:40.753" level="INFO">Table cell contains 'Jardim Botucatu'.</msg>
+<status status="PASS" starttime="20230324 09:14:40.730" endtime="20230324 09:14:40.753"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>3</arg>
+<arg>${04173170.localidade}</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<msg timestamp="20230324 09:14:40.775" level="INFO">Table cell contains 'São Paulo/SP'.</msg>
+<status status="PASS" starttime="20230324 09:14:40.753" endtime="20230324 09:14:40.775"/>
+</kw>
+<kw name="Table Cell Should Contain" library="SeleniumLibrary">
+<arg>${app_endereco.table_resultado}</arg>
+<arg>2</arg>
+<arg>4</arg>
+<arg>${04173170.cep}</arg>
+<doc>Verifies table cell contains text ``expected``.</doc>
+<msg timestamp="20230324 09:14:40.796" level="INFO">Table cell contains '04173-170'.</msg>
+<status status="PASS" starttime="20230324 09:14:40.775" endtime="20230324 09:14:40.796"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:40.689" endtime="20230324 09:14:40.796"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:40.688" endtime="20230324 09:14:40.796"/>
+</if>
+<status status="PASS" starttime="20230324 09:14:40.038" endtime="20230324 09:14:40.796"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:40.035" endtime="20230324 09:14:40.796"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:40.034" endtime="20230324 09:14:40.796"/>
+</kw>
+<kw name="Então deve fechar o navegador" library="bdd_config" type="TEARDOWN" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve fechar o navegador" library="buscarCEP_keywords">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20230324 09:14:40.799" endtime="20230324 09:14:42.883"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:40.799" endtime="20230324 09:14:42.883"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:40.797" endtime="20230324 09:14:42.883"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:40.797" endtime="20230324 09:14:42.883"/>
+</kw>
+<tag>buscarCEPSucesso_web</tag>
+<tag>buscarCEP_web</tag>
+<status status="PASS" starttime="20230324 09:14:36.013" endtime="20230324 09:14:42.884"/>
+</test>
+<test id="s1-s1-s1-s1-t4" name="Cenário 4 - Consulta de CEP com número de dígitos incorretos" line="29">
+<kw name="Dado que tenha o site Correios aberto no navegador" library="buscarCEP_keywords" type="SETUP" sourcename="Dado que tenha o site ${site} aberto no navegador">
+<if>
+<branch type="IF" condition="&quot;${site}&quot; == &quot;Correios&quot;">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${CORREIOS_HOST_WEB}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230324 09:14:42.885" level="INFO">Opening browser 'chrome' to base url 'https://www.correios.com.br/'.</msg>
+<status status="PASS" starttime="20230324 09:14:42.885" endtime="20230324 09:14:45.901"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:42.885" endtime="20230324 09:14:45.901"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:42.885" endtime="20230324 09:14:45.901"/>
+</if>
+<status status="PASS" starttime="20230324 09:14:42.885" endtime="20230324 09:14:45.901"/>
+</kw>
+<kw name="Quando consultar o CEP 013020001" library="bdd_config" sourcename="Quando ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="consultar o CEP 013020001" library="buscarCEP_keywords" sourcename="consultar o CEP ${cep}">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:45.904" endtime="20230324 09:14:45.912"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>${cep}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230324 09:14:45.913" level="INFO">Typing text '013020001' into text field 'id:relaxation'.</msg>
+<status status="PASS" starttime="20230324 09:14:45.912" endtime="20230324 09:14:45.962"/>
+</kw>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230324 09:14:45.963" level="INFO">Sending key(s) ('ENTER',) to id:relaxation element.</msg>
+<msg timestamp="20230324 09:14:46.394" level="INFO">Pressing special key ENTER to element.</msg>
+<msg timestamp="20230324 09:14:46.394" level="INFO">Releasing special key ENTER.</msg>
+<status status="PASS" starttime="20230324 09:14:45.962" endtime="20230324 09:14:46.414"/>
+</kw>
+<kw name="Switch Window" library="SeleniumLibrary">
+<arg>NEW</arg>
+<doc>Switches to browser window matching ``locator``.</doc>
+<status status="PASS" starttime="20230324 09:14:46.414" endtime="20230324 09:14:46.421"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:45.904" endtime="20230324 09:14:46.422"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:45.902" endtime="20230324 09:14:46.422"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:45.901" endtime="20230324 09:14:46.422"/>
+</kw>
+<kw name="Então deve ser exibida a tela com a mensagem de erro na tela: Dados não encontrado" library="bdd_config" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve ser exibida a tela com a mensagem de erro na tela: Dados não encontrado" library="buscarCEP_keywords" sourcename="deve ser exibida a tela com a mensagem de erro na tela: ${mensagem}">
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:46.425" endtime="20230324 09:14:46.847"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20230324 09:14:46.854" level="INFO">Current page contains text 'Dados não encontrado'.</msg>
+<status status="PASS" starttime="20230324 09:14:46.847" endtime="20230324 09:14:46.854"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:46.424" endtime="20230324 09:14:46.854"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:46.422" endtime="20230324 09:14:46.854"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:46.422" endtime="20230324 09:14:46.855"/>
+</kw>
+<kw name="Então deve fechar o navegador" library="bdd_config" type="TEARDOWN" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve fechar o navegador" library="buscarCEP_keywords">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20230324 09:14:46.858" endtime="20230324 09:14:48.946"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:46.858" endtime="20230324 09:14:48.946"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:46.855" endtime="20230324 09:14:48.946"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:46.855" endtime="20230324 09:14:48.946"/>
+</kw>
+<tag>buscarCEPerro_web</tag>
+<tag>buscarCEP_web</tag>
+<status status="PASS" starttime="20230324 09:14:42.884" endtime="20230324 09:14:48.946"/>
+</test>
+<test id="s1-s1-s1-s1-t5" name="Cenário 5 - Consulta de CEP com dígitos alfanuméricos" line="35">
+<kw name="Dado que tenha o site Correios aberto no navegador" library="buscarCEP_keywords" type="SETUP" sourcename="Dado que tenha o site ${site} aberto no navegador">
+<if>
+<branch type="IF" condition="&quot;${site}&quot; == &quot;Correios&quot;">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${CORREIOS_HOST_WEB}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230324 09:14:48.948" level="INFO">Opening browser 'chrome' to base url 'https://www.correios.com.br/'.</msg>
+<status status="PASS" starttime="20230324 09:14:48.948" endtime="20230324 09:14:51.904"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:48.948" endtime="20230324 09:14:51.904"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:48.948" endtime="20230324 09:14:51.904"/>
+</if>
+<status status="PASS" starttime="20230324 09:14:48.947" endtime="20230324 09:14:51.905"/>
+</kw>
+<kw name="Quando consultar o CEP O13OZ-OO1" library="bdd_config" sourcename="Quando ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="consultar o CEP O13OZ-OO1" library="buscarCEP_keywords" sourcename="consultar o CEP ${cep}">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:51.908" endtime="20230324 09:14:51.916"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>${cep}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230324 09:14:51.916" level="INFO">Typing text 'O13OZ-OO1' into text field 'id:relaxation'.</msg>
+<status status="PASS" starttime="20230324 09:14:51.916" endtime="20230324 09:14:51.965"/>
+</kw>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230324 09:14:51.966" level="INFO">Sending key(s) ('ENTER',) to id:relaxation element.</msg>
+<msg timestamp="20230324 09:14:52.263" level="INFO">Pressing special key ENTER to element.</msg>
+<msg timestamp="20230324 09:14:52.263" level="INFO">Releasing special key ENTER.</msg>
+<status status="PASS" starttime="20230324 09:14:51.965" endtime="20230324 09:14:52.283"/>
+</kw>
+<kw name="Switch Window" library="SeleniumLibrary">
+<arg>NEW</arg>
+<doc>Switches to browser window matching ``locator``.</doc>
+<status status="PASS" starttime="20230324 09:14:52.284" endtime="20230324 09:14:52.292"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:51.907" endtime="20230324 09:14:52.292"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:51.905" endtime="20230324 09:14:52.292"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:51.905" endtime="20230324 09:14:52.292"/>
+</kw>
+<kw name="Então deve ser exibida a tela com a mensagem de erro na tela: Dados não encontrado" library="bdd_config" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve ser exibida a tela com a mensagem de erro na tela: Dados não encontrado" library="buscarCEP_keywords" sourcename="deve ser exibida a tela com a mensagem de erro na tela: ${mensagem}">
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:52.294" endtime="20230324 09:14:52.743"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20230324 09:14:52.750" level="INFO">Current page contains text 'Dados não encontrado'.</msg>
+<status status="PASS" starttime="20230324 09:14:52.744" endtime="20230324 09:14:52.750"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:52.293" endtime="20230324 09:14:52.750"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:52.292" endtime="20230324 09:14:52.750"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:52.292" endtime="20230324 09:14:52.750"/>
+</kw>
+<kw name="Então deve fechar o navegador" library="bdd_config" type="TEARDOWN" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve fechar o navegador" library="buscarCEP_keywords">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20230324 09:14:52.753" endtime="20230324 09:14:54.829"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:52.753" endtime="20230324 09:14:54.829"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:52.751" endtime="20230324 09:14:54.829"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:52.751" endtime="20230324 09:14:54.829"/>
+</kw>
+<tag>buscarCEPerro_web</tag>
+<tag>buscarCEP_web</tag>
+<status status="PASS" starttime="20230324 09:14:48.947" endtime="20230324 09:14:54.829"/>
+</test>
+<test id="s1-s1-s1-s1-t6" name="Cenário 6 - Consulta de CEP não existente" line="41">
+<kw name="Dado que tenha o site Correios aberto no navegador" library="buscarCEP_keywords" type="SETUP" sourcename="Dado que tenha o site ${site} aberto no navegador">
+<if>
+<branch type="IF" condition="&quot;${site}&quot; == &quot;Correios&quot;">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${CORREIOS_HOST_WEB}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230324 09:14:54.832" level="INFO">Opening browser 'chrome' to base url 'https://www.correios.com.br/'.</msg>
+<status status="PASS" starttime="20230324 09:14:54.831" endtime="20230324 09:14:57.193"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:54.831" endtime="20230324 09:14:57.193"/>
+</branch>
+<status status="PASS" starttime="20230324 09:14:54.831" endtime="20230324 09:14:57.193"/>
+</if>
+<status status="PASS" starttime="20230324 09:14:54.831" endtime="20230324 09:14:57.193"/>
+</kw>
+<kw name="Quando consultar o CEP 31710-388" library="bdd_config" sourcename="Quando ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="consultar o CEP 31710-388" library="buscarCEP_keywords" sourcename="consultar o CEP ${cep}">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:57.196" endtime="20230324 09:14:57.204"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>${cep}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230324 09:14:57.205" level="INFO">Typing text '31710-388' into text field 'id:relaxation'.</msg>
+<status status="PASS" starttime="20230324 09:14:57.204" endtime="20230324 09:14:57.270"/>
+</kw>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>${home.input_cep}</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230324 09:14:57.271" level="INFO">Sending key(s) ('ENTER',) to id:relaxation element.</msg>
+<msg timestamp="20230324 09:14:57.788" level="INFO">Pressing special key ENTER to element.</msg>
+<msg timestamp="20230324 09:14:57.788" level="INFO">Releasing special key ENTER.</msg>
+<status status="PASS" starttime="20230324 09:14:57.270" endtime="20230324 09:14:57.808"/>
+</kw>
+<kw name="Switch Window" library="SeleniumLibrary">
+<arg>NEW</arg>
+<doc>Switches to browser window matching ``locator``.</doc>
+<status status="PASS" starttime="20230324 09:14:57.808" endtime="20230324 09:14:57.816"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:57.196" endtime="20230324 09:14:57.816"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:57.193" endtime="20230324 09:14:57.816"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:57.193" endtime="20230324 09:14:57.816"/>
+</kw>
+<kw name="Então deve ser exibida a tela com a mensagem de erro na tela: Dados não encontrado" library="bdd_config" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve ser exibida a tela com a mensagem de erro na tela: Dados não encontrado" library="buscarCEP_keywords" sourcename="deve ser exibida a tela com a mensagem de erro na tela: ${mensagem}">
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20230324 09:14:57.819" endtime="20230324 09:14:58.213"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20230324 09:14:58.219" level="INFO">Current page contains text 'Dados não encontrado'.</msg>
+<status status="PASS" starttime="20230324 09:14:58.214" endtime="20230324 09:14:58.219"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:57.818" endtime="20230324 09:14:58.219"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:57.816" endtime="20230324 09:14:58.219"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:57.816" endtime="20230324 09:14:58.219"/>
+</kw>
+<kw name="Então deve fechar o navegador" library="bdd_config" type="TEARDOWN" sourcename="Então ${keyword}">
+<kw name="Run Keyword" library="BuiltIn">
+<arg>${keyword}</arg>
+<doc>Executes the given keyword with the given arguments.</doc>
+<kw name="deve fechar o navegador" library="buscarCEP_keywords">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20230324 09:14:58.223" endtime="20230324 09:15:00.300"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:58.223" endtime="20230324 09:15:00.300"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:58.220" endtime="20230324 09:15:00.300"/>
+</kw>
+<status status="PASS" starttime="20230324 09:14:58.220" endtime="20230324 09:15:00.300"/>
+</kw>
+<tag>buscarCEPerro_web</tag>
+<tag>buscarCEP_web</tag>
+<status status="PASS" starttime="20230324 09:14:54.831" endtime="20230324 09:15:00.300"/>
+</test>
+<doc>Validação de consulta de CEP pelo site Correios</doc>
+<status status="FAIL" starttime="20230324 09:14:21.019" endtime="20230324 09:15:00.301"/>
+</suite>
+<status status="FAIL" starttime="20230324 09:14:21.017" endtime="20230324 09:15:00.302"/>
+</suite>
+<status status="FAIL" starttime="20230324 09:14:21.015" endtime="20230324 09:15:00.304"/>
+</suite>
+<status status="FAIL" starttime="20230324 09:14:20.998" endtime="20230324 09:15:00.304"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="3" fail="1" skip="0">buscarCEPerro_web</stat>
+<stat pass="2" fail="0" skip="0">buscarCEPSucesso_web</stat>
+<stat pass="5" fail="1" skip="0">buscarCEP_web</stat>
+</tag>
+<suite>
+<stat pass="5" fail="1" skip="0" id="s1" name="Tests">Tests</stat>
+<stat pass="5" fail="1" skip="0" id="s1-s1" name="Frontend">Tests.Frontend</stat>
+<stat pass="5" fail="1" skip="0" id="s1-s1-s1" name="Buscar Cep Endereco">Tests.Frontend.Buscar Cep Endereco</stat>
+<stat pass="5" fail="1" skip="0" id="s1-s1-s1-s1" name="buscarCEP">Tests.Frontend.Buscar Cep Endereco.buscarCEP</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
